@@ -1,0 +1,71 @@
+{
+  "name": "echoscribe",
+  "version": "1.0.0",
+  "description": "AI-driven meeting analyzer that provides teams with summarized insights, emotional sentiment analysis, actionable tasks, and intelligent follow-up suggestions",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend",
+    "shared"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\" \"npm run dev:ai\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:ai": "cd ai-services && python -m uvicorn main:app --reload --port 8001",
+    "build": "npm run build:shared && npm run build:frontend && npm run build:backend",
+    "build:shared": "cd shared && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "test": "npm run test:shared && npm run test:frontend && npm run test:backend && npm run test:ai",
+    "test:shared": "cd shared && npm run test",
+    "test:frontend": "cd frontend && npm run test",
+    "test:backend": "cd backend && npm run test",
+    "test:ai": "cd ai-services && python -m pytest",
+    "setup": "npm run setup:deps && npm run setup:db",
+    "setup:deps": "npm install && cd frontend && npm install && cd ../backend && npm install && cd ../shared && npm install && cd ../ai-services && pip install -r requirements.txt",
+    "setup:db": "npx supabase start && npx supabase db reset",
+    "setup:env": "bash scripts/setup-env.sh",
+    "setup:env:staging": "bash scripts/setup-env.sh staging",
+    "setup:env:production": "bash scripts/setup-env.sh production",
+    "validate-env": "npm run validate-env:frontend && npm run validate-env:backend && npm run validate-env:ai",
+    "validate-env:frontend": "cd frontend && npm run validate-env",
+    "validate-env:backend": "cd backend && npm run validate-env",
+    "validate-env:ai": "cd ai-services && python -c \"from app.utils.config import validate_environment; result = validate_environment(); exit(0 if result.success else 1)\"",
+    "lint": "npm run lint:frontend && npm run lint:backend && npm run lint:shared",
+    "lint:frontend": "cd frontend && npm run lint",
+    "lint:backend": "cd backend && npm run lint",
+    "lint:shared": "cd shared && npm run lint",
+    "clean": "npm run clean:deps && npm run clean:build",
+    "clean:deps": "rm -rf node_modules frontend/node_modules backend/node_modules shared/node_modules ai-services/__pycache__ ai-services/.pytest_cache",
+    "clean:build": "rm -rf frontend/dist backend/dist shared/dist"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.11",
+    "autoprefixer": "^10.4.21",
+    "concurrently": "^8.2.2",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.11"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/echoscribe.git"
+  },
+  "keywords": [
+    "ai",
+    "meeting-analyzer",
+    "transcription",
+    "sentiment-analysis",
+    "productivity"
+  ],
+  "author": "EchoScribe Team",
+  "license": "MIT",
+  "dependencies": {
+    "chart.js": "^4.5.0",
+    "lucide-react": "^0.525.0"
+  }
+}

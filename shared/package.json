@@ -1,0 +1,30 @@
+{
+  "name": "@echoscribe/shared",
+  "version": "1.0.0",
+  "description": "Shared types and constants for EchoScribe",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "clean": "rm -rf dist",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "typescript",
+    "types",
+    "shared",
+    "echoscribe"
+  ],
+  "author": "EchoScribe Team",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "files": [
+    "dist/**/*",
+    "types/**/*",
+    "constants/**/*",
+    "index.ts"
+  ]
+}
